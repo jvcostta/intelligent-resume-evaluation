@@ -1,0 +1,7 @@
+fastapi
+uvicorn #servidor local
+pdfplumber
+python-multipart
+aiofiles
+groq
+python-dotenv

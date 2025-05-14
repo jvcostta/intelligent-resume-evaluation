@@ -4,12 +4,13 @@ from dotenv import load_dotenv
 
 load_dotenv()
 client = Groq(
-    api_key = os.envirion.get("GROQ_API_KEY"),
+    api_key = os.environ.get("GROQ_API_KEY"),
     )
 
 def analyze_resume(text: str) -> dict:
     prompt = f"""
     Analise o currículo abaixo e me retorne um resumo contendo:
+    - preciso de um programador para area de IA, procure por canditados que tenham exepeciencia com machine learning, fine tuning, deep learning, crewai, entre outros relacionados a area
     - Pontos fortes
     - Pontos fracos
     - Áreas de destaque
@@ -19,8 +20,8 @@ def analyze_resume(text: str) -> dict:
     {text}
     """
 
-    response = client.ChatCompletion.create(
-        model="llama-3.3-70b-versatile",
+    response = client.chat.completions.create(
+        model="llama3-70b-8192",
         messages=[
             {"role": "system", "content": "Você é um analista de currículos."},
             {"role": "user", "content": prompt}
@@ -30,5 +31,5 @@ def analyze_resume(text: str) -> dict:
     )
 
     return {
-        "analise": response["choices"][0]["message"]["content"]
+        "analise": response.choices[0].message.content
     }
